@@ -1,10 +1,10 @@
 name: 'build-test'
-on: # rebuild any PRs and main branch changes
+on:
   pull_request:
   push:
     branches:
-      - main
-      - 'releases/*'
+      - source
+
 
 jobs:
   build: # make sure build/ci work properly
@@ -15,10 +15,22 @@ jobs:
           npm install
       - run: |
           npm run all
+      # Deploy to local repo
+      - name: Deploy
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: test
+          FOLDER: dist
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   test: # make sure the action works on a clean machine without building
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: test
       - uses: ./
         with:
           milliseconds: 1000
