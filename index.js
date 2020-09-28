@@ -76,7 +76,9 @@ const child_process_1 = __webpack_require__(129);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            child_process_1.exec("mkdir __condom__; tar -cf -  --exclude '__condom__' . | tar -xC __condom__", (error, stdout, stderr) => core_1.debug(stdout));
             child_process_1.exec('ls -lh', (error, stdout, stderr) => core_1.debug(stdout));
+            child_process_1.exec('ls -lh __condom__', (error, stdout, stderr) => core_1.debug(stdout));
             const branch = core_1.getInput('branch');
             core_1.debug(`Will write to branch ${branch} `); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
         }
