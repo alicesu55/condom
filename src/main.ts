@@ -14,7 +14,8 @@ async function run(): Promise<void> {
     // exec('ls -lh __condom__', (error, stdout, stderr) => debug(stdout));
 
     const dockerFile = readFileSync('Dockerfile');
-    const obf = new Obfuscator(dockerFile.toString());
+    consold.log(dockerFile);
+    // const obf = new Obfuscator(dockerFile.toString());
     // obf.compile('csteps');
     // const newDockerFile = obf.dumpEncrypted();
     // writeFileSync('Dockerfile', newDockerFile);
