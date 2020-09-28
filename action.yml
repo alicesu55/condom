@@ -2,10 +2,10 @@ name: 'Your name here'
 description: 'Provide a description here'
 author: 'Your name or organization here'
 inputs:
-  milliseconds: # change this
+  branch: # The target branch
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'The target branch to check in the obfuscated files'
+    default: 'condom'
 runs:
   using: 'node12'
   main: 'index.js'
