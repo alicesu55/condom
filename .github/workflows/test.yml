@@ -33,4 +33,4 @@ jobs:
           ref: test
       - uses: ./
         with:
-          milliseconds: 1000
+          branch: delme
