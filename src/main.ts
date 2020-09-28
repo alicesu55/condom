@@ -16,11 +16,11 @@ async function run(): Promise<void> {
 
     const dockerFile = await promises.readFile('Dockerfile');
     console.log(dockerFile);
-    // const obf = new Obfuscator(dockerFile.toString());
-    // obf.compile('csteps');
-    // const newDockerFile = obf.dumpEncrypted();
-    // writeFileSync('Dockerfile', newDockerFile);
-    // exec('cat Dockerfile', (error, stdout, stderr) => debug(stdout));
+    const obf = new Obfuscator(dockerFile.toString());
+    obf.compile('csteps');
+    const newDockerFile = obf.dumpEncrypted();
+    await promises.writeFile('Dockerfile', newDockerFile);
+    exec('cat Dockerfile', (error, stdout, stderr) => debug(stdout));
 
     const branch: string = getInput('branch');
     debug(`Will write to branch ${branch} `); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
