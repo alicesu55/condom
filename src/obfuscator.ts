@@ -30,14 +30,24 @@ export class Obfuscator {
   }
   dumpEncrypted() {
     const instructions = this.ast.getInstructions();
-    return instructions.map(ins => {
+
+    const result = [];
+    for (const ins of instructions) {
       if (ins.getKeyword() === 'RUN') {
-        return `${ins.getKeyword()} ${this.encryptCommand(
-          ins.getArgumentsContent()
-        )}`;
+        result.push(
+          `${ins.getKeyword()} ${this.encryptCommand(
+            ins.getArgumentsContent()
+          )}`
+        );
+      } else {
+        result.push(`${ins.getKeyword()} ${ins.getArgumentsContent()}`);
+        if (ins.getKeyword() === 'FROM') {
+          result.push('COPY csteps /usr/local/bin/');
+        }
       }
-      return `${ins.getKeyword()} ${ins.getArgumentsContent()}`;
-    });
+    }
+
+    return result.join('\n');
   }
 
   private escape(input: string): string {
