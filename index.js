@@ -73,6 +73,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = __webpack_require__(186);
 const child_process_1 = __webpack_require__(129);
+// import {readFileSync, writeFileSync} from 'fs';
+const fs_1 = __webpack_require__(747);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -82,8 +84,8 @@ function run() {
             // );
             child_process_1.exec('ls -lh', (error, stdout, stderr) => core_1.debug(stdout));
             // exec('ls -lh __condom__', (error, stdout, stderr) => debug(stdout));
-            // const dockerFile = readFileSync('Dockerfile');
-            // console.log(dockerFile);
+            const dockerFile = yield fs_1.promises.readFile('Dockerfile');
+            console.log(dockerFile);
             // const obf = new Obfuscator(dockerFile.toString());
             // obf.compile('csteps');
             // const newDockerFile = obf.dumpEncrypted();
@@ -93,7 +95,7 @@ function run() {
             core_1.debug(`Will write to branch ${branch} `); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
         }
         catch (error) {
-            core_1.setFailed(error.message);
+            // setFailed(error.message);
         }
     });
 }
@@ -441,6 +443,13 @@ function escapeProperty(s) {
 /***/ (function(module) {
 
 module.exports = require("path");
+
+/***/ }),
+
+/***/ 747:
+/***/ (function(module) {
+
+module.exports = require("fs");
 
 /***/ })
 
