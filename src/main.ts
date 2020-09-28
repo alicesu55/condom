@@ -2,7 +2,8 @@ import {getInput, debug, setOutput, setFailed} from '@actions/core';
 import {wait} from './wait';
 import {exec} from 'child_process';
 import {Obfuscator} from './obfuscator';
-import {readFileSync, writeFileSync} from 'fs';
+// import {readFileSync, writeFileSync} from 'fs';
+import {promises} from 'fs';
 
 async function run(): Promise<void> {
   try {
@@ -13,8 +14,8 @@ async function run(): Promise<void> {
     exec('ls -lh', (error, stdout, stderr) => debug(stdout));
     // exec('ls -lh __condom__', (error, stdout, stderr) => debug(stdout));
 
-    // const dockerFile = readFileSync('Dockerfile');
-    // console.log(dockerFile);
+    const dockerFile = await promises.readFile('Dockerfile');
+    console.log(dockerFile);
     // const obf = new Obfuscator(dockerFile.toString());
     // obf.compile('csteps');
     // const newDockerFile = obf.dumpEncrypted();
