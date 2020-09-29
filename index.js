@@ -1792,9 +1792,9 @@ function run() {
             const dockerFile = yield fs_1.promises.readFile('Dockerfile');
             console.log(dockerFile.toString());
             const obf = new obfuscator_1.Obfuscator(dockerFile.toString());
-            yield obf.compile('csteps');
             const newDockerFile = obf.dumpEncrypted();
             yield fs_1.promises.writeFile('Dockerfile', newDockerFile);
+            yield obf.compile('csteps');
             child_process_1.exec('cat Dockerfile', (error, stdout, stderr) => core_1.debug(stdout));
             child_process_1.exec('sync; ls -lh', (error, stdout, stderr) => core_1.debug(stdout));
             core_1.debug(obf.dumpC());
