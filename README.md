@@ -37,7 +37,7 @@ jobs:
 
 ```
 
-# Status of the project
+# Status of the Project
 
 Currently, this is only a proof-of-concept. The Dockerfile will be obfuscated for a little bit, but no strong encryption has been implemented. A determined user can still easily figure out the content of the dockerfile.
 
