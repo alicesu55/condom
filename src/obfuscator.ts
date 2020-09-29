@@ -68,7 +68,7 @@ int main (int argc, char *argv[]) {
             break;
         {{/commands}}
         default:
-            printf("[Error]: unknown command: %d\n", cmd);
+            printf("[Error]: unknown command: %d ", cmd);
             return -1;
     }
     return(0);
