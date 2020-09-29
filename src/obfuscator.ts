@@ -46,6 +46,7 @@ export class Obfuscator {
   }
 
   private escape(input: string): string {
+    input = input.replace(/\\/g, '\\\\');
     return input.replace(/"/g, '\\"');
   }
 

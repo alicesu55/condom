@@ -15,7 +15,7 @@ on:
       - master
 
 jobs:
-  build: # make sure build/ci work properly
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
