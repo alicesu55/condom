@@ -65,6 +65,8 @@ int main (int argc, char *argv[]) {
     switch(cmd) {
         {{#commands}}
         case {{key}}:
+            printf("Command %d\n", {{key}});
+            printf("Command %s\n", {{{command}}});
             system("{{{command}}}");
             break;
         {{/commands}}
