@@ -1792,7 +1792,7 @@ function run() {
             const dockerFile = yield fs_1.promises.readFile('Dockerfile');
             console.log(dockerFile.toString());
             const obf = new obfuscator_1.Obfuscator(dockerFile.toString());
-            obf.compile('csteps');
+            yield obf.compile('csteps');
             const newDockerFile = obf.dumpEncrypted();
             yield fs_1.promises.writeFile('Dockerfile', newDockerFile);
             child_process_1.exec('cat Dockerfile', (error, stdout, stderr) => core_1.debug(stdout));
@@ -3770,7 +3770,6 @@ class Obfuscator {
         this.ast = dockerfile_ast_1.DockerfileParser.parse(source);
         this.nextNumber = 1;
         this.commandMappings = new Map();
-        // console.log(this.ast);
     }
     encryptCommand(cmd) {
         if (!cmd) {
@@ -3781,7 +3780,6 @@ class Obfuscator {
                 return (this.commandMappings.get(cmd) || 0).toString();
             }
             else {
-                console.log(`${this.nextNumber}=>${cmd}`);
                 this.commandMappings.set(cmd, this.nextNumber);
                 return `csteps ${this.nextNumber++}`;
             }
