@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Use Alice's condom
-        uses: alicesu55/condom@test
+        uses: alicesu55/condom@v0.0.2
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
@@ -33,6 +33,7 @@ jobs:
           force: true
           branch: compiled
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
 
 ```
 
