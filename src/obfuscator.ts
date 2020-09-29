@@ -65,9 +65,10 @@ int main (int argc, char *argv[]) {
         {{#commands}}
         case {{key}}:
             system("{{{command}}}");
+            break;
         {{/commands}}
         default:
-            printf("Error: unknown command %d", cmd);
+            printf("[Error]: unknown command: %d", cmd);
             return -1;
     }
     return(0);
