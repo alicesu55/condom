@@ -3794,6 +3794,7 @@ class Obfuscator {
         return result.join('\r\n');
     }
     escape(input) {
+        input = input.replace(/\\/g, '\\\\');
         return input.replace(/"/g, '\\"');
     }
     dumpC() {
