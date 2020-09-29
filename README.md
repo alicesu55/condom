@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Use Alice's condom
-        uses: alicesu55/condom@v0.0.2
+        uses: alicesu55/condom@v0.0.3
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
