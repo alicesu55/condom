@@ -103,7 +103,7 @@ int main (int argc, char *argv[]) {
     return new Promise((resolve, reject) => {
       compiler.on('close', code => {
         if (code === 0) {
-          console.log('compilation succeeded');
+          // console.log('compilation succeeded');
           resolve();
         } else {
           console.log('Compilation failed with error', code);
