@@ -1,6 +1,6 @@
-# The Condom Project
+# The Condom Project: Dockerfile obfuscator in Github Actions
 
-This project serves as a simple obfuscator for a Dockerfile. After obfuscation, the contents of the dockerfile cannot be easily read by human, but still runs and generates the same layer structure of the container.
+This project serves as a simple obfuscator for a Dockerfile. After obfuscation, the contents of the dockerfile cannot be easily read by a human, but still runs and generates the same layer structure of the container.
 
 This project is designed to run on Github Actions. To use it, add a file to your repository as `.github/workflows/condom.yml`
 
@@ -37,15 +37,20 @@ jobs:
 
 ```
 
-# State of the project
+# Status of the project
 
 Currently, this is only a proof-of-concept. The Dockerfile will be obfuscated for a little bit, but no strong encryption has been implemented. A determined user can still easily figure out the content of the dockerfile.
 
 This project is under active development. Please do not use it in production in its current shape.
 
-# Structure of the branches
+Future work:
+ * Implement full encryption for both the steps in the Dockerfile and the files copied to the container during the build process. The content will only be decrypted during the docker build process if the key is provided as an environment variable.
+ * Customize the build process to allow replacing the name of the internal executable.
 
-If you want to contribute to this mess at this stage. You know how to find me.
+# Do not Read the Master Branch
 
-The real source code is under the `source` branch. The `master` branch is reserved to publish a clean compiled version. This arrangement is due to the nature of github actions which requires a built version to be checked in. The maintainer of the project (Alice) wishes to have a clean separation between compiled codes and the source code, though many others have made a different choice.
+The real source code is under the `source` branch. The `master` branch is reserved to publish a clean compiled version. This arrangement is due to the nature of GitHub Actions which requires a built version to be checked in. The maintainer of the project (Alice) wishes to have a clean separation between compiled codes and the source code, though many others have made a different choice.
 
+# Contribution
+
+Any pull requests are highly appreciated. There may be some items marked as "help wanted" in the issues section of this project.
