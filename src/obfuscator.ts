@@ -11,7 +11,7 @@ export class Obfuscator {
   private nextNumber: number;
   constructor(private readonly source: string) {
     this.ast = DockerfileParser.parse(source);
-    this.nextNumber = 0;
+    this.nextNumber = 1;
     this.commandMappings = new Map();
     // console.log(this.ast);
   }
@@ -47,7 +47,7 @@ export class Obfuscator {
       }
     }
 
-    return result.join('\n');
+    return result.join('\r\n');
   }
 
   private escape(input: string): string {
