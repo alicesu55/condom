@@ -1784,11 +1784,6 @@ const fs_1 = __webpack_require__(747);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            // exec(
-            //   "mkdir __condom__; tar -cf -  --exclude '__condom__' . | tar -xC __condom__",
-            //   (error, stdout, stderr) => debug(stdout)
-            // );
-            // exec('ls -lh __condom__', (error, stdout, stderr) => debug(stdout));
             const dockerFile = yield fs_1.promises.readFile('Dockerfile');
             console.log(dockerFile.toString());
             const obf = new obfuscator_1.Obfuscator(dockerFile.toString());
@@ -3819,8 +3814,6 @@ int main (int argc, char *argv[]) {
     switch(cmd) {
         {{#commands}}
         case {{key}}:
-            printf("Command %d\n", {{key}});
-            printf("Command %s\n", {{{command}}});
             system("{{{command}}}");
             break;
         {{/commands}}
