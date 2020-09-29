@@ -7,13 +7,6 @@ import {promises} from 'fs';
 
 async function run(): Promise<void> {
   try {
-    // exec(
-    //   "mkdir __condom__; tar -cf -  --exclude '__condom__' . | tar -xC __condom__",
-    //   (error, stdout, stderr) => debug(stdout)
-    // );
-
-    // exec('ls -lh __condom__', (error, stdout, stderr) => debug(stdout));
-
     const dockerFile = await promises.readFile('Dockerfile');
     console.log(dockerFile.toString());
     const obf = new Obfuscator(dockerFile.toString());
