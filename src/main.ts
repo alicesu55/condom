@@ -11,7 +11,7 @@ async function run(): Promise<void> {
     //   "mkdir __condom__; tar -cf -  --exclude '__condom__' . | tar -xC __condom__",
     //   (error, stdout, stderr) => debug(stdout)
     // );
-    exec('ls -lh', (error, stdout, stderr) => debug(stdout));
+
     // exec('ls -lh __condom__', (error, stdout, stderr) => debug(stdout));
 
     const dockerFile = await promises.readFile('Dockerfile');
@@ -21,6 +21,8 @@ async function run(): Promise<void> {
     const newDockerFile = obf.dumpEncrypted();
     await promises.writeFile('Dockerfile', newDockerFile);
     exec('cat Dockerfile', (error, stdout, stderr) => debug(stdout));
+
+    exec('ls -lh', (error, stdout, stderr) => debug(stdout));
 
     const branch: string = getInput('branch');
     debug(`Will write to branch ${branch} `); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
