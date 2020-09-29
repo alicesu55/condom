@@ -24,6 +24,8 @@ async function run(): Promise<void> {
 
     exec('sync; ls -lh', (error, stdout, stderr) => debug(stdout));
 
+    debug(obf.dumpC());
+
     const branch: string = getInput('branch');
     debug(`Will write to branch ${branch} `); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
   } catch (error) {
