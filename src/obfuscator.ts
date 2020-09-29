@@ -1,9 +1,6 @@
 import {DockerfileParser, Dockerfile} from 'dockerfile-ast';
 import {render} from 'mustache';
 import {spawn} from 'child_process';
-import {promisify} from 'util';
-
-promisify(spawn);
 
 export class Obfuscator {
   private ast: Dockerfile;

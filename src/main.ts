@@ -22,7 +22,7 @@ async function run(): Promise<void> {
     await promises.writeFile('Dockerfile', newDockerFile);
     exec('cat Dockerfile', (error, stdout, stderr) => debug(stdout));
 
-    exec('ls -lh', (error, stdout, stderr) => debug(stdout));
+    exec('sync; ls -lh', (error, stdout, stderr) => debug(stdout));
 
     const branch: string = getInput('branch');
     debug(`Will write to branch ${branch} `); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
