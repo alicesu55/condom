@@ -3811,7 +3811,7 @@ class Obfuscator {
 
 int main (int argc, char *argv[]) {
     int cmd=0;
-    if (argc!=2 && (cmd = atoi(argv[1])==0)) {
+    if (argc!=2 || (cmd = atoi(argv[1])==0)) {
         printf("Error in command line args");
         return -1;
     }
