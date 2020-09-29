@@ -13,7 +13,6 @@ export class Obfuscator {
     this.ast = DockerfileParser.parse(source);
     this.nextNumber = 1;
     this.commandMappings = new Map();
-    // console.log(this.ast);
   }
   private encryptCommand(cmd: string | null): string {
     if (!cmd) {
@@ -22,7 +21,6 @@ export class Obfuscator {
       if (this.commandMappings.has(cmd)) {
         return (this.commandMappings.get(cmd) || 0).toString();
       } else {
-        console.log(`${this.nextNumber}=>${cmd}`);
         this.commandMappings.set(cmd, this.nextNumber);
         return `csteps ${this.nextNumber++}`;
       }
