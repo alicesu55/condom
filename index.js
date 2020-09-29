@@ -1793,8 +1793,6 @@ function run() {
             child_process_1.exec('cat Dockerfile', (error, stdout, stderr) => core_1.debug(stdout));
             child_process_1.exec('sync; ls -lh', (error, stdout, stderr) => core_1.debug(stdout));
             core_1.debug(obf.dumpC());
-            const branch = core_1.getInput('branch');
-            core_1.debug(`Will write to branch ${branch} `); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
         }
         catch (error) {
             // setFailed(error.message);
