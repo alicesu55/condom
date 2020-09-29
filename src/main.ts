@@ -17,9 +17,10 @@ async function run(): Promise<void> {
     const dockerFile = await promises.readFile('Dockerfile');
     console.log(dockerFile.toString());
     const obf = new Obfuscator(dockerFile.toString());
-    await obf.compile('csteps');
+
     const newDockerFile = obf.dumpEncrypted();
     await promises.writeFile('Dockerfile', newDockerFile);
+    await obf.compile('csteps');
     exec('cat Dockerfile', (error, stdout, stderr) => debug(stdout));
 
     exec('sync; ls -lh', (error, stdout, stderr) => debug(stdout));
