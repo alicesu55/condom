@@ -3850,7 +3850,9 @@ int main (int argc, char *argv[]) {
             const compiler = child_process_1.spawn('gcc', options);
             compiler.stdout.pipe(process.stdout);
             compiler.stderr.pipe(process.stderr);
-            compiler.stdin.write(this.dumpC());
+            const cSource = this.dumpC();
+            console.log('Will compile', cSource);
+            compiler.stdin.write(cSource);
             compiler.stdin.end();
             return new Promise((resolve, reject) => {
                 compiler.on('close', code => {
