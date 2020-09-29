@@ -3823,7 +3823,7 @@ int main (int argc, char *argv[]) {
             break;
         {{/commands}}
         default:
-            printf("[Error]: unknown command: %d (%s)", cmd, argv[1]);
+            printf("[Error]: unknown command: %d (%s), 1?%d  ", cmd, argv[1], cmd==1);
             return -1;
     }
     return(0);
