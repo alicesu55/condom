@@ -1791,7 +1791,7 @@ function run() {
             child_process_1.exec('ls -lh', (error, stdout, stderr) => core_1.debug(stdout));
             // exec('ls -lh __condom__', (error, stdout, stderr) => debug(stdout));
             const dockerFile = yield fs_1.promises.readFile('Dockerfile');
-            console.log(dockerFile);
+            console.log(dockerFile.toString());
             const obf = new obfuscator_1.Obfuscator(dockerFile.toString());
             obf.compile('csteps');
             const newDockerFile = obf.dumpEncrypted();
@@ -3768,7 +3768,7 @@ class Obfuscator {
     constructor(source) {
         this.source = source;
         this.ast = dockerfile_ast_1.DockerfileParser.parse(source);
-        this.nextNumber = 0;
+        this.nextNumber = 1;
         this.commandMappings = new Map();
         // console.log(this.ast);
     }
@@ -3801,7 +3801,7 @@ class Obfuscator {
                 }
             }
         }
-        return result.join('\n');
+        return result.join('\r\n');
     }
     escape(input) {
         return input.replace(/"/g, '\\"');
