@@ -61,7 +61,7 @@ int main (int argc, char *argv[]) {
         printf("Error in command line args");
         return -1;
     }
-    cmd = atoi(argv[1];
+    cmd = atoi(argv[1]);
     switch(cmd) {
         {{#commands}}
         case {{key}}:
