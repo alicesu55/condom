@@ -30,12 +30,18 @@ jobs:
       - name: Get Mysql
         run: |
           git clone https://github.com/docker-library/mysql.git
+          ls
+          ls mysql
+          ls mysql/8.0
       - uses: alicesu55/condom@build
         with:
           folder: '8.0'
       - name: Mysql Should Compile
         run: |
-          cat mysql/8.0/Dockerfile 
+          ls
+          ls mysql
+          ls mysql/8.0
+          cat mysql/8.0/Dockerfile
           cd mysql/8.0; docker build -t mysql8 .
 
   deploy: # make sure build/ci work properly
