@@ -12,8 +12,8 @@ async function run(): Promise<void> {
     const obf = new Obfuscator(dockerFile.toString());
 
     const newDockerFile = obf.dumpEncrypted();
-    await promises.writeFile('Dockerfile', newDockerFile);
-    await obf.compile('csteps');
+    await promises.writeFile(join(folder, 'Dockerfile'), newDockerFile);
+    await obf.compile(join(folder, 'csteps'));
   } catch (error) {
     // setFailed(error.message);
   }
