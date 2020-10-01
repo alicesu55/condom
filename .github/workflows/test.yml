@@ -19,7 +19,7 @@ jobs:
         uses: s0/git-publish-subdir-action@develop
         env:
           REPO: self
-          BRANCH: test
+          BRANCH: build
           FOLDER: dist
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -27,9 +27,30 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Get Mysql
+        run: |
+          git clone https://github.com/docker-library/mysql.git
+      - uses: alicesu55/condom@build
+        with:
+          folder: '8.0'
+      - name: Mysql Should Compile
+        run: |
+          cat mysql/8.0/Dockerfile 
+          cd mysql/8.0; docker build -t mysql8 .
+
+  deploy: # make sure build/ci work properly
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v2
-        with:
-          ref: test
-      - uses: ./
-        with:
-          branch: delme
+      - run: |
+          npm install
+      - run: |
+          npm run all
+      # Deploy to local repo
+      - name: Deploy
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: stage
+          FOLDER: dist
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

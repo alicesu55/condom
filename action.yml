@@ -1,11 +1,11 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'condom'
+description: 'A dockerfile obfuscator'
+author: 'Alice Su'
 inputs:
-  branch: # The target branch
-    required: true
-    description: 'The target branch to check in the obfuscated files'
-    default: 'condom'
+  folder:
+    required: false
+    description: 'The folder to find the files to obfuscate. If not provided, the root directory of you repository is used'
+    default: '.'
 runs:
   using: 'node12'
   main: 'index.js'

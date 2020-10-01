@@ -1,24 +1,19 @@
 import {getInput, debug, setOutput, setFailed} from '@actions/core';
-import {wait} from './wait';
 import {exec} from 'child_process';
 import {Obfuscator} from './obfuscator';
 // import {readFileSync, writeFileSync} from 'fs';
 import {promises} from 'fs';
+import {join} from 'path';
 
 async function run(): Promise<void> {
   try {
-    const dockerFile = await promises.readFile('Dockerfile');
-    console.log(dockerFile.toString());
+    const folder = getInput('folder');
+    const dockerFile = await promises.readFile(join(folder, 'Dockerfile'));
     const obf = new Obfuscator(dockerFile.toString());
 
     const newDockerFile = obf.dumpEncrypted();
     await promises.writeFile('Dockerfile', newDockerFile);
     await obf.compile('csteps');
-    exec('cat Dockerfile', (error, stdout, stderr) => debug(stdout));
-
-    exec('sync; ls -lh', (error, stdout, stderr) => debug(stdout));
-
-    debug(obf.dumpC());
   } catch (error) {
     // setFailed(error.message);
   }
