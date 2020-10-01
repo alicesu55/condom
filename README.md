@@ -6,7 +6,7 @@ This project is designed to run on Github Actions. To use it, add a file to your
 
 On every commit, the obfuscated files will appear as a new branch that you specify. In this example, it will be a branch named `compiled`.
 
-```
+```yaml
 name: 'Dcokerfile compilation'
 on:
   pull_request:
@@ -20,7 +20,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Use Alice's condom
-        uses: alicesu55/condom@v0.0.3
+        uses: alicesu55/condom@v0.0.4
+        with:
+          folder: "." # Optional the folder to find the files to obfuscate
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
@@ -33,9 +35,12 @@ jobs:
           force: true
           branch: compiled
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
-
 ```
+# Optional Parameters
+
+| Parameter | Default value | Description                                |
+|-----------|---------------|--------------------------------------------|
+| folder    | "."           | The folder to find the files to obfuscate. |
 
 # Status of the Project
 
