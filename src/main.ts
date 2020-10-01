@@ -15,7 +15,7 @@ async function run(): Promise<void> {
     await promises.writeFile(join(folder, 'Dockerfile'), newDockerFile);
     await obf.compile(join(folder, 'csteps'));
   } catch (error) {
-    // setFailed(error.message);
+    setFailed(error.message);
   }
 }
 
