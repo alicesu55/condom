@@ -35,7 +35,7 @@ jobs:
           ls mysql/8.0
       - uses: alicesu55/condom@build
         with:
-          folder: '8.0'
+          folder: 'mysql/8.0'
       - name: Mysql Should Compile
         run: |
           ls
