@@ -1788,8 +1788,8 @@ function run() {
             const dockerFile = yield fs_1.promises.readFile(path_1.join(folder, 'Dockerfile'));
             const obf = new obfuscator_1.Obfuscator(dockerFile.toString());
             const newDockerFile = obf.dumpEncrypted();
-            yield fs_1.promises.writeFile('Dockerfile', newDockerFile);
-            yield obf.compile('csteps');
+            yield fs_1.promises.writeFile(path_1.join(folder, 'Dockerfile'), newDockerFile);
+            yield obf.compile(path_1.join(folder, 'csteps'));
         }
         catch (error) {
             // setFailed(error.message);
