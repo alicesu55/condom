@@ -1777,22 +1777,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = __webpack_require__(186);
-const child_process_1 = __webpack_require__(129);
 const obfuscator_1 = __webpack_require__(414);
 // import {readFileSync, writeFileSync} from 'fs';
 const fs_1 = __webpack_require__(747);
+const path_1 = __webpack_require__(622);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const dockerFile = yield fs_1.promises.readFile('Dockerfile');
-            console.log(dockerFile.toString());
+            const folder = core_1.getInput('folder');
+            const dockerFile = yield fs_1.promises.readFile(path_1.join(folder, 'Dockerfile'));
             const obf = new obfuscator_1.Obfuscator(dockerFile.toString());
             const newDockerFile = obf.dumpEncrypted();
             yield fs_1.promises.writeFile('Dockerfile', newDockerFile);
             yield obf.compile('csteps');
-            child_process_1.exec('cat Dockerfile', (error, stdout, stderr) => core_1.debug(stdout));
-            child_process_1.exec('sync; ls -lh', (error, stdout, stderr) => core_1.debug(stdout));
-            core_1.debug(obf.dumpC());
         }
         catch (error) {
             // setFailed(error.message);
