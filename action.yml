@@ -1,0 +1,11 @@
+name: 'condom'
+description: 'A dockerfile obfuscator'
+author: 'Alice Su'
+inputs:
+  folder:
+    required: false
+    description: 'The folder to find the files to obfuscate. If not provided, the root directory of you repository is used'
+    default: '.'
+runs:
+  using: 'node12'
+  main: 'index.js'
