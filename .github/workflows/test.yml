@@ -6,7 +6,7 @@ on:
       - source
 
 jobs:
-  build: # make sure build/ci work properly
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -23,30 +23,38 @@ jobs:
           FOLDER: dist
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  test: # make sure the action works on a clean machine without building
+  test-mysql8: # make sure the action works on a clean machine without building
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Get Mysql
+      - name: Get Mysql 8.0
         run: |
           git clone https://github.com/docker-library/mysql.git
-          ls
-          ls mysql
-          ls mysql/8.0
       - uses: alicesu55/condom@build
         with:
           folder: 'mysql/8.0'
-      - name: Mysql Should Compile
+      - name: Test Mysql 8.0
         run: |
-          ls
-          ls mysql
-          ls mysql/8.0
           cat mysql/8.0/Dockerfile
           cd mysql/8.0; docker build -t mysql8 .
 
-  deploy: # make sure build/ci work properly
+  test-nginx-buster:
+    needs: build
     runs-on: ubuntu-latest
-    needs: test
+    steps:
+      - name: Get nginx-buster
+        run: |
+          git clone https://github.com/nginxinc/docker-nginx.git
+      - uses: alicesu55/condom@build
+        with:
+          folder: 'docker-nginx/stable/buster'
+      - name: Test Nginx
+        run: |
+          cat docker-nginx/stable/buster/Dockerfile
+          cd docker-nginx/stable/buster; docker build -t mysql8 .
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [test-mysql8, test-nginx-buster]
     steps:
       - uses: actions/checkout@v2
       - run: |
@@ -61,3 +69,4 @@ jobs:
           BRANCH: stage
           FOLDER: dist
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MESSAGE: "Bot: release compiled files based on commit {sha}. Read source branch instead"
