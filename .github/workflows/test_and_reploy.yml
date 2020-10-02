@@ -51,10 +51,41 @@ jobs:
       - name: Test Nginx
         run: |
           cat docker-nginx/stable/buster/Dockerfile
-          cd docker-nginx/stable/buster; docker build -t mysql8 .
+          cd docker-nginx/stable/buster; docker build -t nginx .
+
+  test-mongo-4v4:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get
+        run: |
+          git clone https://github.com/docker-library/mongo.git
+      - uses: alicesu55/condom@build
+        with:
+          folder: 'mongo/4.4'
+      - name: Test
+        run: |
+          cat mongo/4.4/Dockerfile
+          cd mongo/4.4; docker build -t mongo4 .
+
+  test-postgres-alpine:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get
+        run: |
+          git clone https://github.com/docker-library/postgres.git
+      - uses: alicesu55/condom@build
+        with:
+          folder: 'postgres/13/alpine'
+      - name: Test
+        run: |
+          cat postgres/13/alpine/Dockerfile
+          cd postgres/13/alpine; docker build -t postgres .
+
   deploy:
     runs-on: ubuntu-latest
-    needs: [test-mysql8, test-nginx-buster]
+    needs: [test-mysql8, test-nginx-buster, test-mongo-4v4, 'test-postgres-alpine']
     steps:
       - uses: actions/checkout@v2
       - run: |
