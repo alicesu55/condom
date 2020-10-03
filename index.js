@@ -3807,14 +3807,16 @@ class Obfuscator {
         const instructions = this.ast.getInstructions();
         const result = [];
         for (const ins of instructions) {
-            if (ins.getKeyword() === 'RUN') {
-                result.push(`${ins.getKeyword()} ${this.encryptCommand(ins.getArgumentsContent())}`);
+            switch (ins.getKeyword()) {
+                case 'RUN':
+                    result.push(`${ins.getKeyword()} ${this.encryptCommand(ins.getArgumentsContent())}`);
+                    break;
+                default:
+                    result.push(`${ins.getKeyword()} ${ins.getArgumentsContent()}`);
+                    break;
             }
-            else {
-                result.push(`${ins.getKeyword()} ${ins.getArgumentsContent()}`);
-                if (ins.getKeyword() === 'FROM') {
-                    result.push('COPY csteps /usr/local/bin/');
-                }
+            if (ins.getKeyword() === 'FROM') {
+                result.push('COPY csteps /usr/local/bin/');
             }
         }
         return result.join('\r\n');
