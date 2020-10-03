@@ -28,17 +28,21 @@ export class Obfuscator {
 
     const result = [];
     for (const ins of instructions) {
-      if (ins.getKeyword() === 'RUN') {
-        result.push(
-          `${ins.getKeyword()} ${this.encryptCommand(
-            ins.getArgumentsContent()
-          )}`
-        );
-      } else {
-        result.push(`${ins.getKeyword()} ${ins.getArgumentsContent()}`);
-        if (ins.getKeyword() === 'FROM') {
-          result.push('COPY csteps /usr/local/bin/');
-        }
+      switch (ins.getKeyword()) {
+        case 'RUN':
+          result.push(
+            `${ins.getKeyword()} ${this.encryptCommand(
+              ins.getArgumentsContent()
+            )}`
+          );
+          break;
+        default:
+          result.push(`${ins.getKeyword()} ${ins.getArgumentsContent()}`);
+          break;
+      }
+
+      if (ins.getKeyword() === 'FROM') {
+        result.push('COPY csteps /usr/local/bin/');
       }
     }
 
